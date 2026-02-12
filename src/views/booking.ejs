@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book an Appointment</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Book an Appointment</h1>
+        <p>Single stylist, fixed hours, fast booking.</p>
+      </header>
+
+      <% if (error) { %>
+        <div class="alert"><%= error %></div>
+      <% } %>
+
+      <section class="panel">
+        <h2>Choose Date & Service</h2>
+        <form method="GET" action="/">
+          <label>
+            Date
+            <input type="date" name="date" value="<%= date %>" required />
+          </label>
+          <label>
+            Service
+            <select name="service_id" required>
+              <% services.forEach((service) => { %>
+                <option value="<%= service.id %>" <%= service.id === serviceId ? "selected" : "" %>>
+                  <%= service.name %> - $<%= (service.price_cents / 100).toFixed(2) %>
+                </option>
+              <% }) %>
+            </select>
+          </label>
+          <button type="submit">Update Slots</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Book</h2>
+        <form method="POST" action="/book">
+          <input type="hidden" name="date" value="<%= date %>" />
+          <input type="hidden" name="service_id" value="<%= serviceId %>" />
+
+          <label>
+            Time
+            <select name="time" required>
+              <% if (!slots.length) { %>
+                <option value="">No slots available</option>
+              <% } else { %>
+                <% slots.forEach((slot) => { %>
+                  <option value="<%= slot %>"><%= slot %></option>
+                <% }) %>
+              <% } %>
+            </select>
+          </label>
+
+          <label>
+            Name
+            <input type="text" name="customer_name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Phone (optional)
+            <input type="text" name="phone" />
+          </label>
+
+          <button type="submit">Confirm Booking</button>
+        </form>
+      </section>
+
+      <footer>
+        <a href="/admin">Admin view</a>
+      </footer>
+    </main>
+  </body>
+</html>

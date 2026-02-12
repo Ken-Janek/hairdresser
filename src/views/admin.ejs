@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Bookings</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Admin Bookings</h1>
+        <p>Manage today's and upcoming appointments.</p>
+      </header>
+
+      <section class="panel">
+        <% if (!bookings.length) { %>
+          <p>No bookings yet.</p>
+        <% } else { %>
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Client</th>
+                <th>Service</th>
+                <th>Contact</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% bookings.forEach((booking) => { %>
+                <tr>
+                  <td><%= booking.date %></td>
+                  <td><%= booking.start_time.slice(0, 5) %></td>
+                  <td><%= booking.customer_name %></td>
+                  <td><%= booking.service_name %></td>
+                  <td>
+                    <div><%= booking.email %></div>
+                    <% if (booking.phone) { %>
+                      <div><%= booking.phone %></div>
+                    <% } %>
+                  </td>
+                  <td>
+                    <form method="POST" action="/admin/cancel/<%= booking.id %>">
+                      <button type="submit" class="danger">Cancel</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        <% } %>
+      </section>
+
+      <footer>
+        <a href="/">Back to booking</a>
+      </footer>
+    </main>
+  </body>
+</html>
