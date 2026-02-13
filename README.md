@@ -1,10 +1,10 @@
-# Hairdresser Booking (PHP MVC)
+# Juuksuri broneerimine (PHP MVC)
 
-Minimal booking system with public booking and protected admin view. Built with PHP using a simple MVC structure (controllers, models, views).
+Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaatega. Tehtud PHP-ga lihtsas MVC struktuuris (kontrollerid, mudelid, vaated).
 
-## Setup (Local)
+## Paigaldus (kohalik)
 
-1. Create the database and tables:
+1. Loo andmebaas ja tabelid:
 
 ```sql
 CREATE DATABASE hairdresser_booking;
@@ -12,48 +12,48 @@ USE hairdresser_booking;
 SOURCE db/schema.sql;
 ```
 
-If you previously used an older schema, recreate the database so `stylist_id` and `stylists` exist.
+Kui kasutasid varem vana skeemi, loo andmebaas uuesti, et `stylist_id` ja `stylists` oleksid olemas.
 
-2. Create a `.env` file based on `.env.example` and set DB + admin credentials.
+2. Loo `.env` fail `.env.example` alusel ja seadista DB ning admini kasutaja.
 
-3. Run the PHP built-in server:
+3. Käivita PHP sisseehitatud server:
 
 ```bash
 php -S localhost:3000 -t public
 ```
 
-Visit http://localhost:3000 for booking and http://localhost:3000/admin for admin.
+Ava http://localhost:3000 broneerimiseks ja http://localhost:3000/admin admini vaateks.
 
-## Notes
+## Märkused
 
-- Fixed hours: Monday to Friday, 09:00-17:00.
-- Two sample stylists are seeded in the database.
-- Overlapping bookings are blocked in the application and at the database level for same stylist and start time.
+- Fikseeritud ajad: esmaspaevast reedeni, 09:00-17:00.
+- Andmebaasis on kaks naidisjuuksurit.
+- Kattuvad broneeringud on blokeeritud rakenduses ja andmebaasi tasemel (sama juuksur ja algusaeg).
 
-## MVC Structure
+## MVC struktuur
 
-- Controllers: request handling (e.g. [src/Controllers](src/Controllers))
-- Models: data access (e.g. [src/Models](src/Models))
-- Views: user-facing templates (e.g. [src/Views](src/Views))
+- Kontrollerid: paringute kaivitamine (nt [src/Controllers](src/Controllers))
+- Mudelid: andmebaasiparigud (nt [src/Models](src/Models))
+- Vaated: kasutajaliides (nt [src/Views](src/Views))
 
-## Client-Server Overview
+## Kliendi-serveri ylevaade
 
-User actions in the browser (client) send HTTP requests to the PHP server (server). The router maps the request to a controller, the controller calls models to read/write data, and then the server renders a view (HTML) which is returned as the response.
+Brauseris tehtud tegevused saadavad HTTP paringud PHP serverile. Router seob paringu kontrolleriga, kontroller kasutab mudeleid lugemiseks/kirjutamiseks ja server tagastab vaate (HTML).
 
-## Security Overview
+## Turvalisus
 
-Relevant risks and mitigations:
+Peamised riskid ja lahendused:
 
-- SQL injection: all DB access uses prepared statements in models.
-- XSS: output is escaped in views via the shared escape helper.
-- Unauthorized admin access: admin routes require HTTP Basic Auth using credentials stored in `.env`.
-- Invalid input: server-side validation for required fields, date format, and email.
+- SQL injection: koik DB paringud on ettevalmistatud (prepared statements).
+- XSS: vaadetes kasutatakse escape helperit.
+- Admini ligipaas: admini route'id on kaitstud HTTP Basic Auth-iga `.env` parameetrite alusel.
+- Vigane sisend: serveripoolel on kontroll kohustuslike valjade, kuupaeva ja e-posti formaadi jaoks.
 
-## Code Standard
+## Koodistiil
 
-Code follows a consistent PHP style inspired by PSR-12: 4-space indentation, class-per-file, explicit visibility, and consistent naming.
+Kood jargib PSR-12 stiili ideed: 4 taini, klass uhes failis, selge nahtavus, jarjepidev nimetus.
 
-## Deployment (fill in for submission)
+## Deploy (taida esitamiseks)
 
 - Public URL: TODO
 - Hosting environment: TODO
