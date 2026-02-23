@@ -1,31 +1,23 @@
 FROM php:8.3-apache
 
-# Disable event MPM (comes by default, conflicts with prefork)
-RUN a2dismod mpm_event
-
-# Enable required modules (prefork is usually default, just ensure rewrite/headers)
-RUN a2enmod rewrite headers
+WORKDIR /var/www/html
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Set working directory
-WORKDIR /var/www/html
+# Enable required Apache modules
+RUN a2enmod rewrite
 
 # Copy application files
 COPY . .
 
-# Set permissions
-RUN chown -R www-data:www-data /var/www/html
+# Copy Apache config
+COPY apache.conf /etc/apache2/sites-enabled/000-default.conf
 
-# Create .env file from example if it doesn't exist
-RUN if [ ! -f .env ]; then cp .env.example .env; fi
+# Create .env from example if needed
+RUN if [ ! -f .env ]; then cp .env.example .env || true; fi
 
-# Expose port
 EXPOSE 80
-
-# Set Apache to listen on 0.0.0.0
-RUN sed -i 's/Listen 80/Listen 0.0.0.0:80/' /etc/apache2/ports.conf
 
 # Start Apache
 CMD ["apache2-foreground"]
