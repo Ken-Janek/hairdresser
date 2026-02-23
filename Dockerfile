@@ -5,8 +5,8 @@ WORKDIR /var/www/html
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Enable required Apache modules
-RUN a2enmod rewrite
+# Disable event MPM, enable rewrite
+RUN a2dismod mpm_event && a2enmod rewrite
 
 # Copy application files
 COPY . .
