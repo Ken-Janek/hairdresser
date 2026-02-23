@@ -5,16 +5,19 @@ WORKDIR /var/www/html
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Disable event MPM, enable rewrite
-RUN a2dismod mpm_event && a2enmod rewrite
+# Disable event MPM to avoid conflicts
+RUN a2dismod mpm_event 2>/dev/null || true
+
+# Enable rewrite module
+RUN a2enmod rewrite
 
 # Copy application files
 COPY . .
 
-# Copy Apache VirtualHost config
-COPY apache.conf /etc/apache2/sites-available/000-default.conf
+# Change Apache DocumentRoot to public directory
+RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Create .env from example if needed
+# Create .env from example if it doesn't exist
 RUN if [ ! -f .env ]; then cp .env.example .env || true; fi
 
 EXPOSE 80
