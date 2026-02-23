@@ -14,11 +14,11 @@ RUN a2enmod rewrite
 # Copy application files
 COPY . .
 
+# Remove .env files - use Railway environment variables instead
+RUN rm -f .env .env.example .env.production
+
 # Change Apache DocumentRoot to public directory
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
-
-# Create .env from example if it doesn't exist
-RUN if [ ! -f .env ]; then cp .env.example .env || true; fi
 
 EXPOSE 80
 
