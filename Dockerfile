@@ -1,7 +1,10 @@
 FROM php:8.3-apache
 
-# Disable conflicting MPM modules and enable required ones
-RUN a2dismod mpm_event && a2enmod mpm_prefork rewrite headers
+# Disable event MPM (comes by default, conflicts with prefork)
+RUN a2dismod mpm_event
+
+# Enable required modules (prefork is usually default, just ensure rewrite/headers)
+RUN a2enmod rewrite headers
 
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
