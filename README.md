@@ -20,15 +20,6 @@ Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaat
 - Broneeringu tühistamise funktsioon
 - Kaitstud HTTP Basic Auth-iga
 
-## Kuvakaadrid
-
-Kuvakaadrid saab lisada `docs/` kausta:
-- `docs/booking.png` - avalik broneerimisvaade
-- `docs/confirmation.png` - kinnitusvaade
-- `docs/admin.png` - admini vaade
-
-Pildid kuvatakse siis automaatselt siin nähtavaks, kui need kausta salvestad ja pusid GitHubi.
-
 ## Paigaldus (kohalik)
 
 1. Loo andmebaas ja tabelid:
