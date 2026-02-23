@@ -18,17 +18,20 @@ class Db
                 $port = $parsed['port'] ?? 3306;
                 $user = $parsed['user'] ?? 'root';
                 $pass = $parsed['pass'] ?? '';
-                $name = ltrim($parsed['path'] ?? '', '/');
+                $name = ltrim($parsed['path'] ?? '/', '/');
                 
                 $dsn = sprintf('mysql:host=%s;port=%d;dbname=%s;charset=utf8mb4', $host, $port, $name);
+                error_log("Using DATABASE_URL: host=$host, port=$port, db=$name");
             } else {
                 // Fallback to individual environment variables
-                $host = Config::get('DB_HOST', 'localhost');
-                $name = Config::get('DB_NAME', 'hairdresser_booking');
-                $user = Config::get('DB_USER', 'root');
-                $pass = Config::get('DB_PASSWORD', '');
+                $host = Config::get('DB_HOST') ?? 'localhost';
+                $port = Config::get('DB_PORT') ?? '3306';
+                $name = Config::get('DB_NAME') ?? 'hairdresser_booking';
+                $user = Config::get('DB_USER') ?? 'root';
+                $pass = Config::get('DB_PASSWORD') ?? '';
                 
-                $dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8mb4', $host, $name);
+                $dsn = sprintf('mysql:host=%s;port=%s;dbname=%s;charset=utf8mb4', $host, $port, $name);
+                error_log("Using individual env vars: host=$host, port=$port, db=$name");
             }
 
             self::$instance = new PDO($dsn, $user, $pass, [
