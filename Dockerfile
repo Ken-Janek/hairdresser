@@ -17,10 +17,15 @@ COPY . .
 # Remove .env files - use Railway environment variables instead
 RUN rm -f .env .env.example .env.production
 
-# Change Apache DocumentRoot to public directory
-RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+# Copy custom Apache configuration
+COPY docker_apache.conf /etc/apache2/sites-available/000-default.conf
+
+# Enable rewrite module (already done, but ensure it's enabled)
+RUN a2enmod rewrite
 
 EXPOSE 80
+
+
 
 # Start Apache
 CMD ["apache2-foreground"]
