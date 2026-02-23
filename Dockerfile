@@ -11,7 +11,11 @@ COPY . .
 # Remove .env files - use Railway environment variables instead
 RUN rm -f .env .env.example .env.production
 
+# Copy and make entrypoint executable
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 EXPOSE 8080
 
-# Start PHP built-in server on PORT (Railway sets this, default 8080)
-CMD php -S 0.0.0.0:${PORT:-8080} -t public/
+# Use entrypoint script to handle PORT env variable
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
