@@ -1,0 +1,41 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  
+  # Don't rewrite requests for real files or directories
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  
+  # Rewrite all requests to index.php with the requested path as a query parameter
+  RewriteRule ^(.*)$ /index.php?url=$1 [QSA,L]
+</IfModule>
+
+# Set proper headers for security and performance
+<IfModule mod_headers.c>
+  # Add security headers
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  
+  # Disable caching for HTML pages
+  <FilesMatch "\.(html|php)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+  
+  # Cache static assets for 1 month
+  <FilesMatch "\.(css|js|jpg|jpeg|png|gif|ico|woff|woff2|svg)$">
+    Header set Cache-Control "public, max-age=2592000"
+  </FilesMatch>
+</IfModule>
+
+# Deny direct access to sensitive directories
+<FilesMatch "\.env$">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Enable gzip compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+</IfModule>

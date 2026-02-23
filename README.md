@@ -91,23 +91,19 @@ php -S localhost:3000 -t public
 
 ### Avalikel keskkondadele (Production)
 
-Projekti juurutamiseks avalikule serverile:
+**See projekt on juurutatud Railway-le ja kapselt avalikult kättesaadav:**
 
-1. Paigalda PHP 7.4+ ja MySQL 5.7+ toetuv veebimajutus
-2. Laadi failid serverisse FTP/SFTP kaudu
-3. Seadista `.env` fail serveris olevatele andmebaasi ning muude parameetritele
-4. Konfigureeri veebiserveris URL rewriting `.htaccess` abil (kui kasutad Apache'd):
+🌐 **Public URL:** https://hairydresser.site
 
-```apache
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ /index.php?url=$1 [QSA,L]
-</IfModule>
-```
+Täielikud deployment juhendid on saadaval [DEPLOYMENT.md](DEPLOYMENT.md) failina.
 
-Näited turvaliste majutuskeskkondade kohta: Heroku, Railway, Vercel (PHP tugi), DreamHost, Bluehost jne.
+### Omaenda serverile paigaldamine
 
-**Märge:** Praegu on projekt ainult arenduskeskkonnale konfigureeritud. Tootmiskeskkonnal tuleks kasutada HTTPS-i ja turvalisemaid paroolisid `.env` failis.
+Alternatiivina saab projekti juurutada mis tahes PHP 7.4+ ja MySQL 5.7+ toega veebimajutusele:
+
+1. Laadi failid serverisse FTP/SFTP kaudu
+2. Seadista `.env` fail serveris
+3. Impordi andmebaasi skeem: `mysql ... < db/schema.sql`
+4. Seadista veebiserver URL rewriting-ule (`.htaccess` on kaasas)
+
+Vaata [DEPLOYMENT.md](DEPLOYMENT.md) täpsema juhendi jaoks.
