@@ -7,7 +7,7 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   
   # Rewrite all requests to index.php with the requested path as a query parameter
-  RewriteRule ^(.*)$ /index.php?url=$1 [QSA,L]
+  RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 </IfModule>
 
 # Set proper headers for security and performance
