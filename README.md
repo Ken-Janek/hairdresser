@@ -22,14 +22,12 @@ Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaat
 
 ## Kuvakaadrid
 
-### Avalik broneerimisvaade
-![Booking Interface](docs/booking.png)
+Kuvakaadrid saab lisada `docs/` kausta:
+- `docs/booking.png` - avalik broneerimisvaade
+- `docs/confirmation.png` - kinnitusvaade
+- `docs/admin.png` - admini vaade
 
-### Broneeringu kinnitamine
-![Booking Confirmation](docs/confirmation.png)
-
-### Admini vaade
-![Admin Bookings](docs/admin.png)
+Pildid kuvatakse siis automaatselt siin nähtavaks, kui need kausta salvestad ja pusid GitHubi.
 
 ## Paigaldus (kohalik)
 
