@@ -2,6 +2,35 @@
 
 Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaatega. Tehtud PHP-ga lihtsas MVC struktuuris (kontrollerid, mudelid, vaated).
 
+## Funktsioonid
+
+### Avalik broneerimisvaade
+- Kuupäeva ja juuksuri valik
+- Teenuse valimine
+- Ajaslottide kuvamine valitud kuupäevale ja juuksurile
+- Klientandmete sisestamine ja broneeringu kinnitamine
+
+### Kinnitusvaade
+- Broneeringu kokkuvõte
+- Juhendatud tagasi broneerimise vaatele
+
+### Admini vaade
+- Broneeringute loend filtreerituna kuupäeva järgi
+- Iga broneeringu andmed (aeg, klient, juuksur, teenus, kontakt)
+- Broneeringu tühistamise funktsioon
+- Kaitstud HTTP Basic Auth-iga
+
+## Kuvakaadrid
+
+### Avalik broneerimisvaade
+![Booking Interface](docs/booking.png)
+
+### Broneeringu kinnitamine
+![Booking Confirmation](docs/confirmation.png)
+
+### Admini vaade
+![Admin Bookings](docs/admin.png)
+
 ## Paigaldus (kohalik)
 
 1. Loo andmebaas ja tabelid:
@@ -53,7 +82,43 @@ Peamised riskid ja lahendused:
 
 Kood jargib PSR-12 stiili ideed: 4 taini, klass uhes failis, selge nahtavus, jarjepidev nimetus.
 
-## Deploy (taida esitamiseks)
+## Käivitamine (Arendusel)
 
-- Public URL: TODO
-- Hosting environment: TODO
+Projektis on konfigureeritud PHP sisseehitatud server, mis jookseb localhost:3000 peal.
+
+### Käivitamine VS Code kaudu
+
+Vasakul küljes Activity Baris klõpsa "Run" ikoonile (või vajuta Ctrl+Shift+D) ja klõpsa "Run PHP Server" ülesande juures play-nupul.
+
+Siis ava brauseris:
+- Broneerimine: http://localhost:3000
+- Admin: http://localhost:3000/admin (Kasutaja: `admin`, Parool: `Passw0rd`)
+
+### Käivitamine terminalis
+
+```bash
+php -S localhost:3000 -t public
+```
+
+### Avalikel keskkondadele (Production)
+
+Projekti juurutamiseks avalikule serverile:
+
+1. Paigalda PHP 7.4+ ja MySQL 5.7+ toetuv veebimajutus
+2. Laadi failid serverisse FTP/SFTP kaudu
+3. Seadista `.env` fail serveris olevatele andmebaasi ning muude parameetritele
+4. Konfigureeri veebiserveris URL rewriting `.htaccess` abil (kui kasutad Apache'd):
+
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ /index.php?url=$1 [QSA,L]
+</IfModule>
+```
+
+Näited turvaliste majutuskeskkondade kohta: Heroku, Railway, Vercel (PHP tugi), DreamHost, Bluehost jne.
+
+**Märge:** Praegu on projekt ainult arenduskeskkonnale konfigureeritud. Tootmiskeskkonnal tuleks kasutada HTTPS-i ja turvalisemaid paroolisid `.env` failis.
