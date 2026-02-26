@@ -93,7 +93,7 @@ php -S localhost:3000 -t public
 
 **See projekt on juurutatud Railway-le ja kapselt avalikult kättesaadav:**
 
-🌐 **Public URL:** www.hairydresser.site
+🌐 **Public URL:** www.hairydressers.site
 
 Täielikud deployment juhendid on saadaval [DEPLOYMENT.md](DEPLOYMENT.md) failina.
 
