@@ -1,6 +1,6 @@
 # Juuksuri broneerimine (PHP MVC)
 
-Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaatega. Tehtud PHP-ga lihtsas MVC struktuuris (kontrollerid, mudelid, vaated).
+Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaatega. Tehtud PHP-ga lihtsas MVC struktuuris (kontrollerid, mudelid, vaated). VEEVILEHT EI TÖÖTA VEEL.
 
 ## Funktsioonid
 
@@ -93,7 +93,7 @@ php -S localhost:3000 -t public
 
 **See projekt on juurutatud Railway-le ja kapselt avalikult kättesaadav:**
 
-🌐 **Public URL:** https://hairydresser.site
+🌐 **Public URL:** www.hairydresser.site
 
 Täielikud deployment juhendid on saadaval [DEPLOYMENT.md](DEPLOYMENT.md) failina.
 
