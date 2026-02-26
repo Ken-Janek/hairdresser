@@ -41,6 +41,6 @@ try {
     http_response_code(500);
     View::render('error', [
         'title' => 'Error',
-        'message' => 'Something went wrong.'
+        'message' => $error->getMessage()
     ]);
 }
