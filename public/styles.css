@@ -174,6 +174,27 @@ footer a {
   display: inline-block;
 }
 
+.step-back-wrap {
+  margin: 0 0 14px;
+}
+
+.step-back {
+  color: var(--ink);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  background: #d4c49a;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 2px solid #2a1a12;
+  display: inline-block;
+}
+
+.step-back:hover {
+  filter: brightness(0.97);
+}
+
 
 .panel:nth-of-type(1) {
   animation-delay: 0.05s;

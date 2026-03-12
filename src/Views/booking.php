@@ -44,8 +44,8 @@
 <?php if ((int)($step ?? 1) === 2) : ?>
   <section class="panel">
     <h2>Book</h2>
-    <p>
-      <a href="/?date=<?= urlencode($date) ?>&stylist_id=<?= (int)$stylistId ?>&service_id=<?= (int)$serviceId ?>">Back to step 1</a>
+    <p class="step-back-wrap">
+      <a class="step-back" href="/?date=<?= urlencode($date) ?>&stylist_id=<?= (int)$stylistId ?>&service_id=<?= (int)$serviceId ?>">Back to step 1</a>
     </p>
     <form method="POST" action="/book">
       <input type="hidden" name="date" value="<?= $escape($date) ?>" />
