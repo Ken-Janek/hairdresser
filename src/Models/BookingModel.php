@@ -49,6 +49,10 @@ class BookingModel
 
         $pdo->beginTransaction();
         try {
+            $nextIdStmt = $pdo->query('SELECT id FROM bookings ORDER BY id DESC LIMIT 1 FOR UPDATE');
+            $lastBooking = $nextIdStmt->fetch();
+            $nextBookingId = (int)($lastBooking['id'] ?? 0) + 1;
+
             $stmt = $pdo->prepare(
                 'SELECT start_time, end_time FROM bookings
                  WHERE stylist_id = ? AND date = ?
@@ -66,10 +70,11 @@ class BookingModel
 
             $insert = $pdo->prepare(
                 'INSERT INTO bookings
-                    (customer_name, email, phone, service_id, stylist_id, date, start_time, end_time)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)'
+                    (id, customer_name, email, phone, service_id, stylist_id, date, start_time, end_time)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)'
             );
             $insert->execute([
+                $nextBookingId,
                 $data['customer_name'],
                 $data['email'],
                 $data['phone'],
@@ -89,7 +94,7 @@ class BookingModel
         }
 
         return [
-            'id' => (int)$pdo->lastInsertId(),
+            'id' => $nextBookingId,
             'service_name' => $service['name'],
             'stylist_name' => $stylist['name'],
             'date' => $data['date'],
