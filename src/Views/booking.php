@@ -12,11 +12,11 @@
   <form method="GET" action="/">
     <label>
       Date
-      <input type="date" name="date" value="<?= $escape($date) ?>" required onchange="this.form.submit()" />
+      <input type="date" name="date" value="<?= $escape($date) ?>" required />
     </label>
     <label>
       Stylist
-      <select name="stylist_id" required onchange="this.form.submit()">
+      <select name="stylist_id" required>
         <?php foreach ($stylists as $stylist) : ?>
           <option value="<?= (int)$stylist['id'] ?>" <?= (int)$stylist['id'] === (int)$stylistId ? 'selected' : '' ?>>
             <?= $escape($stylist['name']) ?>
@@ -26,7 +26,7 @@
     </label>
     <label>
       Service
-      <select name="service_id" required onchange="this.form.submit()">
+      <select name="service_id" required>
         <?php foreach ($services as $service) : ?>
           <option value="<?= (int)$service['id'] ?>" <?= (int)$service['id'] === (int)$serviceId ? 'selected' : '' ?>>
             <?= $escape($service['name']) ?> - $<?= number_format($service['price_cents'] / 100, 2) ?>
