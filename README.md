@@ -1,6 +1,6 @@
 # Juuksuri broneerimine (PHP MVC)
 
-Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaatega. Tehtud PHP-ga lihtsas MVC struktuuris (kontrollerid, mudelid, vaated). VEEVILEHT EI TÖÖTA VEEL.
+Minimaalne broneerimissusteem avaliku broneerimisvaatega ja kaitstud admini vaatega. Tehtud PHP-ga lihtsas MVC struktuuris (kontrollerid, mudelid, vaated).
 
 ## Funktsioonid
 
