@@ -12,11 +12,11 @@
   <form method="GET" action="/">
     <label>
       Date
-      <input type="date" name="date" value="<?= $escape($date) ?>" required />
+      <input type="date" name="date" value="<?= $escape($date) ?>" required onchange="this.form.submit()" />
     </label>
     <label>
       Stylist
-      <select name="stylist_id" required>
+      <select name="stylist_id" required onchange="this.form.submit()">
         <?php foreach ($stylists as $stylist) : ?>
           <option value="<?= (int)$stylist['id'] ?>" <?= (int)$stylist['id'] === (int)$stylistId ? 'selected' : '' ?>>
             <?= $escape($stylist['name']) ?>
@@ -26,7 +26,7 @@
     </label>
     <label>
       Service
-      <select name="service_id" required>
+      <select name="service_id" required onchange="this.form.submit()">
         <?php foreach ($services as $service) : ?>
           <option value="<?= (int)$service['id'] ?>" <?= (int)$service['id'] === (int)$serviceId ? 'selected' : '' ?>>
             <?= $escape($service['name']) ?> - $<?= number_format($service['price_cents'] / 100, 2) ?>
@@ -34,7 +34,6 @@
         <?php endforeach; ?>
       </select>
     </label>
-    <button type="submit">Update Slots</button>
   </form>
 </section>
 
