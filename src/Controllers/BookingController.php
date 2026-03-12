@@ -8,6 +8,10 @@ class BookingController
     {
         $stylists = StylistModel::all();
         $services = ServiceModel::all();
+        $step = (int)($_GET['step'] ?? 1);
+        if ($step !== 2) {
+            $step = 1;
+        }
 
         $date = $_GET['date'] ?? AvailabilityService::nextOpenDate();
         $stylistId = (int)($_GET['stylist_id'] ?? ($stylists[0]['id'] ?? 0));
@@ -31,8 +35,13 @@ class BookingController
             );
         }
 
+        if ($step === 2 && ($selectedService === null || $stylistId <= 0)) {
+            $step = 1;
+        }
+
         View::render('booking', [
             'title' => 'Book an Appointment',
+            'step' => $step,
             'stylists' => $stylists,
             'services' => $services,
             'date' => $date,
@@ -137,6 +146,7 @@ class BookingController
 
         View::render('booking', [
             'title' => 'Book an Appointment',
+            'step' => 2,
             'stylists' => $stylists,
             'services' => $services,
             'date' => $date,
